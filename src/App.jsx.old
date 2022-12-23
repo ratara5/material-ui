@@ -1,0 +1,101 @@
+import React from 'react';
+import Button from '@mui/material/Button';
+import { Abc, Delete, Room, Save } from '@mui/icons-material';
+import {Icon, IconButton, Typography} from '@mui/material'; //requires reference CDN Google into index.html
+import {styled} from '@mui/material/styles';
+import { ThemeProvider } from '@emotion/react';
+
+import theme from './themeConfig'; //change style configuration default. Create these file
+import Navbar from './components/Navbar';
+import Listm from './components/Listm';
+import Hiddenm from './components/Hiddenm';
+
+const PREFIX = 'MyCard';
+const classes = {
+  root: `${PREFIX}-root`,
+  cta: `${PREFIX}-cta`,
+  content: `${PREFIX}-content`,
+  btnCustomize: `btnCustomize`
+}
+const Root=styled('div')(({theme})=>({
+  [`& .${classes.btnCustomize}`]:{
+    background:'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    border:0,
+    borderRadius:3,
+    boxShadow:'0 3px 5px 2px rgba(205, 105, 135, .3)',
+    color:'white',
+    height:48,
+    padding:'0 30px',
+  },
+  [`& .${classes.cta}`]:{
+    borderRadius: theme.shape.radius
+  }
+}))
+
+function App() {
+
+  return (
+    <ThemeProvider theme={theme}>
+      <Root>
+        <Navbar/>{/*None component hide behind the navbar*/}
+        <Listm/>
+        <Hiddenm/>
+
+
+        <Button
+          variant="outlined" 
+          color="accent" 
+          fullWidth
+          size='small'
+          href="https://www.elcolombiano.com"
+          className={classes.cta}> {/*variant='text' and color='default' have not compatibility(?)*/} 
+          IR A EL COLOMBIANO.COM
+        </Button>
+        <br/>
+        <Abc color="primary"/>
+        <br/>
+        <Icon color="secondary"> {/*Other way:  requires reference CDN Google into index.html . It will be span*/}
+          star
+        </Icon>
+        <br/>
+        <Button 
+          variant="contained" 
+          color="secondary"
+          startIcon={<Room/>}  
+          style={{margin:"5px"}}> {/*It will be span*/}
+          Room
+        </Button>
+        <Button 
+          variant="contained" 
+          color="success"
+          endIcon={<Icon>save</Icon>}> {/*Other way:  requires reference CDN Google into index.html . It will be span*/}
+          Save
+        </Button>
+        <br/>
+        <IconButton aria-label="delete">
+          <Delete
+            color="primary"/>
+        </IconButton>
+        <br/>
+        <br/>
+        <Typography align="center" variant="h1" color="primary" gutterBottom>
+          Esto es una h1 y no se necesitó escribir &lt;h1&gt; en react con mui
+        </Typography> {/*gutterBottom agrega margen en la parte inferior del documento*/}
+        <br/>
+        <Typography align="left" variant="body1" color="secondary" paragraph>
+          Un body1 es la alternativa a un &lt;p&gt;
+        </Typography> {/*gutterBottom agrega margen más amplio que paragraph en la parte inferior del documento*/}
+        <br/>
+        <br/>
+        <Button className='btnCustomize'>
+          Botón Personalizado
+        </Button>
+        <script type="text/javascript">
+          {console.log("Nombre de clase: "+classes.cta)}; {/*un script para ver nombres de clases*/}
+        </script>
+      </Root>
+    </ThemeProvider>
+  );
+}
+
+export default App;
